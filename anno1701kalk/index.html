@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <title>Anno 1701 Fogyasztás kalkulátor</title>        
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+        <style>
+            body td {font-family: Verdana,Arial,Helvetiva,Sans-Serif; font-size: 9pt;}
+            th   {font-family: Verdana,Arial,Helvetiva,Sans-Serif; font-size: 9pt; font-weight: bold;}
+            .container {margin-top: 25px};
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>  
+        
+        <script type="text/javascript" language="javascript">
+            function recalc()
+            {
+                // Zuerst die max. Einwohnerzahlen (sind immer ganzzahlig)
+                summe =  anz_p = document.myform.num_p_e.value = document.myform.num_p_h.value * 8;
+                summe += anz_s = document.myform.num_s_e.value = document.myform.num_s_h.value * 13;
+                summe += anz_b = document.myform.num_b_e.value = document.myform.num_b_h.value * 20;
+                summe += anz_k = document.myform.num_k_e.value = document.myform.num_k_h.value * 30;
+                summe += anz_a = document.myform.num_a_e.value = document.myform.num_a_h.value * 40;
+                document.myform.sum_e.value = anz_e = summe;
+                // Bedarf (Anzeige auf volle kg gerundet)
+                nahrung = anz_e * 0.008;
+                document.myform.nahrung.value = Math.round(1000 * nahrung) / 1000;
+                stoffe = anz_e * 0.005;
+                document.myform.stoffe.value = Math.round(1000 * stoffe) / 1000;
+                alkohol = (anz_s + anz_b) * 0.005 + anz_k * 0.0043 + anz_a * 0.0038;
+                document.myform.alkohol.value = Math.round(1000 * alkohol) / 1000;
+                tabakwaren = (anz_s + anz_b + anz_k + anz_a) * 0.003;
+                document.myform.tabakwaren.value = Math.round(1000 * tabakwaren) / 1000;
+                pralinen = (anz_b + anz_k + anz_a) * 0.002;
+                document.myform.pralinen.value = Math.round(1000 * pralinen) / 1000;
+                lampenoel = (anz_b + anz_k + anz_a) * 0.006;
+                document.myform.lampenoel.value = Math.round(1000 * lampenoel) / 1000;
+                parfum = (anz_k + anz_a) * 0.006;
+                document.myform.parfum.value = Math.round(1000 * parfum) / 1000;
+                schmuck = (anz_k + anz_a) * 0.0029;
+                document.myform.schmuck.value = Math.round(1000 * schmuck) / 1000;
+                // Jetzt die notwendigen Produktionsgeb�ude (Aufgerundet zur n�chsten ganzen Zahl, da man ja nur ganze H�user bauen kann)
+                // und der damit erzielbare m�gliche Output
+                document.myform.fischerjaeger.value   = Math.ceil(nahrung);
+                document.myform.o_fischerjaeger.value = document.myform.fischerjaeger.value;
+                document.myform.getreide.value        = Math.ceil(nahrung * 4 / 6);
+                document.myform.o_getreide.value      = document.myform.getreide.value * 1.5;
+                document.myform.muehle.value          = Math.ceil(nahrung * 2 / 6);
+                document.myform.baecker.value         = Math.ceil(nahrung / 6);
+                document.myform.rinder.value          = Math.ceil(nahrung * 2 / 3);
+                document.myform.o_rinder.value        = document.myform.rinder.value * 1.5;
+                document.myform.metzger.value         = Math.ceil(nahrung / 3);
+                document.myform.schaffarm.value       = Math.ceil(stoffe);
+                document.myform.o_schaffarm.value     = document.myform.schaffarm.value;
+                document.myform.webstube.value        = Math.ceil(stoffe / 2);
+                document.myform.zucker.value          = Math.ceil(alkohol);
+                document.myform.o_zucker.value        = document.myform.zucker.value;
+                document.myform.brenner.value         = Math.ceil((alkohol) / 2);
+                document.myform.hopfen.value          = Math.ceil(alkohol);
+                document.myform.o_hopfen.value        = document.myform.hopfen.value;
+                document.myform.brauer.value          = Math.ceil((alkohol) / 2);
+                document.myform.tabak.value           = Math.ceil(tabakwaren);
+                document.myform.o_tabak.value         = document.myform.tabak.value;
+                document.myform.pfeife.value          = Math.ceil(tabakwaren / 2);
+                wal_summe = document.myform.wal_lamp.value = Math.ceil(lampenoel / 6);
+                document.myform.lampe.value           = Math.ceil(lampenoel * 3 / 6);
+                document.myform.o_lampe.value         = document.myform.lampe.value * 2;
+                document.myform.imker.value           = Math.ceil(pralinen);
+                document.myform.o_imker.value         = document.myform.imker.value;
+                document.myform.kakao.value           = Math.ceil(pralinen);
+                document.myform.konfiserie.value      = Math.ceil(pralinen / 2);
+                wal_summe += document.myform.wal_parf.value = Math.ceil(parfum / 6);
+                document.myform.ambra.value           = Math.ceil(parfum * 3 / 6);
+                document.myform.blume.value           = Math.ceil(parfum);
+                document.myform.parfuem.value         = Math.ceil(parfum * 3 / 6);
+                document.myform.o_parfum.value        = document.myform.ambra.value * 2;
+                document.myform.wal_sum.value         = wal_summe;
+                document.myform.gold.value            = Math.ceil(schmuck / 4);
+                document.myform.edel.value            = Math.ceil(schmuck / 4);
+                document.myform.goldschmied.value     = Math.ceil(schmuck * 2 / 4);
+                document.myform.o_schmuck.value       = document.myform.goldschmied.value * 2;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 col-sm-12">
+                    <h1>Anno 1701 kalkulátor</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <form name="myform">
+                &nbsp;<table border="0">
+                <tbody><tr>
+                    <td valign="top">
+                    <table border="0">
+                        <tbody><tr>
+                        <td align="center">
+                            <table border="5" bordercolor="#ff0000">
+                            <tbody><tr>
+                                <th colspan="5" bgcolor="#ffff00" align="center">
+                                <b>Bitte eingeben</b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" align="center">
+                                <b>Anzahl H�user</b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Pioniere
+                                </th>
+                                <th>Siedler
+                                </th>
+                                <th>B�rger
+                                </th>
+                                <th>Kaufleute
+                                </th>
+                                <th>Aristokraten
+                                </th>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                <input type="text" id="num_p_h" value="0" size="5" onchange="recalc();">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_s_h" value="0" size="5" onchange="recalc();">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_b_h" value="0" size="5" onchange="recalc();">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_k_h" value="0" size="5" onchange="recalc();">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_a_h" value="0" size="5" onchange="recalc();">
+                                </td>
+                            </tr>
+                            </tbody></table>
+                        </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                        <td>
+                            <table border="5" bordercolor="#00cc00">
+                            <tbody><tr>
+                                <th colspan="6" bgcolor="#ffff00" align="center">
+                                <b>Ergibt max. Einwohner</b>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Pioniere
+                                </th>
+                                <th>Siedler
+                                </th>
+                                <th>B�rger
+                                </th>
+                                <th>Kaufleute
+                                </th>
+                                <th>Aristokraten
+                                </th>
+                                <th>gesamt
+                                </th>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                <input type="text" id="num_p_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_s_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_b_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_k_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="num_a_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                                <td align="center">
+                                <input type="text" id="sum_e" value="0" size="5" readonly="readonly" disabled="disabled">
+                                </td>
+                            </tr>
+                            </tbody></table>
+                        </td>
+                        </tr>
+                    </tbody></table>
+                    </td><td>
+                    </td><td>
+                    <table border="5" bordercolor="#00cc00" cellspacing="0" cellpadding="1">
+                        <tbody><tr>
+                        <th colspan="10" bgcolor="#ffff00" align="center">
+                            <b>Bedarf bitte hier ablesen</b>
+                        </th>
+                        </tr>
+                        <tr>
+                        <th align="center">
+                            <b>Verbrauch</b>
+                        </th>
+                        <th colspan="8" align="center">
+                            <b>Anzahl Produktionsgeb�ude und jeweils produzierte Warenmenge</b>
+                        </th>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Nahrung<br>
+                            <input type="text" id="nahrung" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="fischerjaeger" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Fischer / J�ger</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_fischerjaeger" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><b>&nbsp;oder&nbsp;</b></td>
+                        <td><input type="text" id="getreide" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Getreidefarm<br>
+                            <input type="text" id="muehle" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;M�hle<br>
+                            <input type="text" id="baecker" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;B�cker</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_getreide" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td><b>&nbsp;oder&nbsp;</b></td>
+                        <td><input type="text" id="rinder" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Rinderfarm<br>
+                            <input type="text" id="metzger" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Metzger</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_rinder" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Stoffe<br>
+                            <input type="text" id="stoffe" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="schaffarm" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Schaffarm<br>
+                            <input type="text" id="webstube" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Webstube</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_schaffarm" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td colspan="6">&nbsp;</td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Alkohol<br>
+                            <input type="text" id="alkohol" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="zucker" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Zuckerrohrplantage<br>
+                            <input type="text" id="brenner" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Rumbrennerei</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_zucker" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td><b>&nbsp;oder&nbsp;</b></td>
+                        <td><input type="text" id="hopfen" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Hopfenplantage<br>
+                            <input type="text" id="brauer" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Brauerei</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_hopfen" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td colspan="3">&nbsp;</td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Tabakwaren<br>
+                            <input type="text" id="tabakwaren" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="tabak" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Tabakplantage<br>
+                            <input type="text" id="pfeife" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Tabakverarbeitung</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_tabak" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td colspan="6">&nbsp;</td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Pralinen<br>
+                            <input type="text" id="pralinen" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="imker" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Imker<br>
+                            <input type="text" id="kakao" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Kakaoplantage<br>
+                            <input type="text" id="konfiserie" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Konfiserie</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_imker" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td colspan="6">&nbsp;</td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="8">&nbsp;</td></tr>
+                        <tr>
+                        <td>Lampen�l<br>
+                            <input type="text" id="lampenoel" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="wal_lamp" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Walf�nger<br>
+                            <input type="text" id="lampe" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Transieder</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_lampe" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td rowspan="2">&nbsp;</td>
+                        <td rowspan="2">Walf�nger gesamt<br><input type="text" id="wal_sum" value="0" size="5" readonly="readonly" disabled="disabled"></td>
+                        <td rowspan="2" colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td>Parf�m<br>
+                            <input type="text" id="parfum" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="wal_parf" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Walf�nger<br>
+                            <input type="text" id="ambra" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Ambraproduktion<br>
+                            <input type="text" id="blume" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Bl�tenfarm<br>
+                            <input type="text" id="parfuem" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Parf�merie</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_parfum" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        </tr>
+                        <tr>
+                        </tr><tr>
+                        <td>Schmuck<br>
+                            <input type="text" id="schmuck" value="0" size="7" readonly="readonly" disabled="disabled">&nbsp;t/min</td>
+                        <td><input type="text" id="gold" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Goldmine<br>
+                            <input type="text" id="edel" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Edelsteinmine<br>
+                            <input type="text" id="goldschmied" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;Goldschmied</td>
+                        <td>Produktion: <br>
+                            <input type="text" id="o_schmuck" value="0" size="5" readonly="readonly" disabled="disabled">&nbsp;t/min
+                        </td>
+                        <td colspan="6">&nbsp;</td>
+                        </tr>
+                    </tbody></table>
+                    </td>
+                </tr>
+                </tbody></table>
+                </form>
+            </div>
+        </div>
+    </body>
+ </html>
