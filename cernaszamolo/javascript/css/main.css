@@ -1,0 +1,37 @@
+body {
+	margin-top: 40px;
+	background-color: #ddd;
+}
+
+.container {
+	padding-top: 40px;
+	background-color: #fff;
+	border-radius: 10px;
+	max-width: 500px;
+}
+
+
+form label {
+	font-weight: bold;
+}
+
+form small {
+	color: red;
+}
+
+.visible {
+	visibility: visible !important;
+}
+
+.invisible {
+	visibility: hidden !important;
+}
+
+#irkakilovesKi {
+	font-size: 2em;
+	color: darkgreen;
+}
+
+#elsoOldalak {
+	font-size: 1.5em;
+}
